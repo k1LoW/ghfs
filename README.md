@@ -1,6 +1,6 @@
-# ghfs
+# ghfs [![build](https://github.com/k1LoW/ghfs/actions/workflows/ci.yml/badge.svg)](https://github.com/k1LoW/ghfs/actions/workflows/ci.yml)
 
-`ghfs` provides a GitHub repository implementation for Go io/fs interface.
+`ghfs` provides a GitHub remote repository implementation for Go io/fs interface.
 
 The implementation wraps [go-github](https://github.com/google/go-github) client and use [Git Database API](https://docs.github.com/en/rest/reference/git).
 
