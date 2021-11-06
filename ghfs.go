@@ -17,7 +17,7 @@ import (
 var (
 	_ fs.FS         = (*FS)(nil)
 	_ fs.ReadFileFS = (*FS)(nil)
-	// _ fs.ReadDirFS  = (*FS)(nil)
+	_ fs.ReadDirFS  = (*FS)(nil)
 
 	ctx = context.Background()
 )
@@ -98,6 +98,35 @@ func (fsys *FS) ReadFile(name string) ([]byte, error) {
 	}
 
 	return []byte(data), nil
+}
+
+func (fsys *FS) ReadDir(name string) ([]fs.DirEntry, error) {
+	f, err := fsys.shafs.Open(name)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+
+	fi, err := f.Stat()
+	if err != nil {
+		return nil, err
+	}
+
+	if !fi.IsDir() {
+		return nil, &fs.PathError{Op: "open", Path: name, Err: fs.ErrNotExist}
+	}
+
+	files, err := fs.ReadDir(fsys.shafs, name)
+	if err != nil {
+		return nil, err
+	}
+	dents := []fs.DirEntry{}
+	for _, f := range files {
+		dents = append(dents, &dent{
+			de: f,
+		})
+	}
+	return dents, nil
 }
 
 func (fsys *FS) readDataFromSHA(sha string) (string, int, error) {
