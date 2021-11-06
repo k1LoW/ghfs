@@ -8,6 +8,7 @@ The implementation wraps [go-github](https://github.com/google/go-github) client
 
 - [fs.FS](https://pkg.go.dev/io/fs#FS)
 - [fs.ReadFileFS](https://pkg.go.dev/io/fs#ReadFileFS)
+- [fs.ReadDirFS](https://pkg.go.dev/io/fs#ReadDirFS)
 
 ## References
 
