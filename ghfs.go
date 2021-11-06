@@ -17,7 +17,7 @@ import (
 var (
 	_ fs.FS         = (*FS)(nil)
 	_ fs.ReadFileFS = (*FS)(nil)
-	// _ fs.ReadDirFS  = (*FS)(nil)
+	_ fs.ReadDirFS  = (*FS)(nil)
 
 	ctx = context.Background()
 )
@@ -34,7 +34,9 @@ func (fsys *FS) Open(name string) (fs.File, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer f.Close()
+	defer func() {
+		_ = f.Close()
+	}()
 
 	fi, err := f.Stat()
 	if err != nil {
@@ -75,7 +77,9 @@ func (fsys *FS) ReadFile(name string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer f.Close()
+	defer func() {
+		_ = f.Close()
+	}()
 
 	fi, err := f.Stat()
 	if err != nil {
@@ -100,6 +104,37 @@ func (fsys *FS) ReadFile(name string) ([]byte, error) {
 	return []byte(data), nil
 }
 
+func (fsys *FS) ReadDir(name string) ([]fs.DirEntry, error) {
+	f, err := fsys.shafs.Open(name)
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		_ = f.Close()
+	}()
+
+	fi, err := f.Stat()
+	if err != nil {
+		return nil, err
+	}
+
+	if !fi.IsDir() {
+		return nil, &fs.PathError{Op: "open", Path: name, Err: fs.ErrNotExist}
+	}
+
+	files, err := fs.ReadDir(fsys.shafs, name)
+	if err != nil {
+		return nil, err
+	}
+	dents := []fs.DirEntry{}
+	for _, f := range files {
+		dents = append(dents, &dent{
+			de: f,
+		})
+	}
+	return dents, nil
+}
+
 func (fsys *FS) readDataFromSHA(sha string) (string, int, error) {
 	blob, _, err := fsys.client.Git.GetBlob(ctx, fsys.owner, fsys.repo, sha)
 	if err != nil {
@@ -120,10 +155,9 @@ func (fsys *FS) readDataFromSHA(sha string) (string, int, error) {
 		}
 		data = string(c)
 	case "":
-		if blob.Content == nil {
-			data = ""
+		if blob.Content != nil {
+			data = blob.GetContent()
 		}
-		data = blob.GetContent()
 	default:
 		return "", 0, fmt.Errorf("unsupported content encoding: %v", encoding)
 	}
