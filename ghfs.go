@@ -14,8 +14,13 @@ import (
 	"github.com/k1LoW/go-github-client/v39/factory"
 )
 
-var _ fs.FS = (*FS)(nil)
-var ctx = context.Background()
+var (
+	_ fs.FS         = (*FS)(nil)
+	_ fs.ReadFileFS = (*FS)(nil)
+	// _ fs.ReadDirFS  = (*FS)(nil)
+
+	ctx = context.Background()
+)
 
 type FS struct {
 	client *github.Client
@@ -51,9 +56,54 @@ func (fsys *FS) Open(name string) (fs.File, error) {
 		return nil, err
 	}
 	sha := string(b)
-	blob, _, err := fsys.client.Git.GetBlob(ctx, fsys.owner, fsys.repo, sha)
+
+	data, size, err := fsys.readDataFromSHA(sha)
 	if err != nil {
 		return nil, err
+	}
+
+	return &file{
+		path: name,
+		data: data,
+		size: size,
+		fi:   fi,
+	}, nil
+}
+
+func (fsys *FS) ReadFile(name string) ([]byte, error) {
+	f, err := fsys.shafs.Open(name)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+
+	fi, err := f.Stat()
+	if err != nil {
+		return nil, err
+	}
+
+	if fi.IsDir() {
+		return nil, &fs.PathError{Op: "open", Path: name, Err: fs.ErrNotExist}
+	}
+
+	b, err := io.ReadAll(f)
+	if err != nil {
+		return nil, err
+	}
+	sha := string(b)
+
+	data, _, err := fsys.readDataFromSHA(sha)
+	if err != nil {
+		return nil, err
+	}
+
+	return []byte(data), nil
+}
+
+func (fsys *FS) readDataFromSHA(sha string) (string, int, error) {
+	blob, _, err := fsys.client.Git.GetBlob(ctx, fsys.owner, fsys.repo, sha)
+	if err != nil {
+		return "", 0, err
 	}
 
 	encoding := blob.GetEncoding()
@@ -62,11 +112,11 @@ func (fsys *FS) Open(name string) (fs.File, error) {
 	switch encoding {
 	case "base64":
 		if blob.Content == nil {
-			return nil, errors.New("malformed response: base64 encoding of null content")
+			return "", 0, errors.New("malformed response: base64 encoding of null content")
 		}
 		c, err := base64.StdEncoding.DecodeString(blob.GetContent())
 		if err != nil {
-			return nil, err
+			return "", 0, err
 		}
 		data = string(c)
 	case "":
@@ -75,15 +125,9 @@ func (fsys *FS) Open(name string) (fs.File, error) {
 		}
 		data = blob.GetContent()
 	default:
-		return nil, fmt.Errorf("unsupported content encoding: %v", encoding)
+		return "", 0, fmt.Errorf("unsupported content encoding: %v", encoding)
 	}
-
-	return &file{
-		path: name,
-		data: data,
-		size: blob.GetSize(),
-		fi:   fi,
-	}, nil
+	return data, blob.GetSize(), nil
 }
 
 func New(owner, repo string) (*FS, error) {
