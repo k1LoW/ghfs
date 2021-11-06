@@ -34,7 +34,9 @@ func (fsys *FS) Open(name string) (fs.File, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer f.Close()
+	defer func() {
+		_ = f.Close()
+	}()
 
 	fi, err := f.Stat()
 	if err != nil {
@@ -75,7 +77,9 @@ func (fsys *FS) ReadFile(name string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer f.Close()
+	defer func() {
+		_ = f.Close()
+	}()
 
 	fi, err := f.Stat()
 	if err != nil {
@@ -105,7 +109,9 @@ func (fsys *FS) ReadDir(name string) ([]fs.DirEntry, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer f.Close()
+	defer func() {
+		_ = f.Close()
+	}()
 
 	fi, err := f.Stat()
 	if err != nil {
@@ -149,10 +155,9 @@ func (fsys *FS) readDataFromSHA(sha string) (string, int, error) {
 		}
 		data = string(c)
 	case "":
-		if blob.Content == nil {
-			data = ""
+		if blob.Content != nil {
+			data = blob.GetContent()
 		}
-		data = blob.GetContent()
 	default:
 		return "", 0, fmt.Errorf("unsupported content encoding: %v", encoding)
 	}
