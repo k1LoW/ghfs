@@ -76,3 +76,22 @@ func TestOptionBranch(t *testing.T) {
 		t.Errorf("got %v\nwant %v", got, want)
 	}
 }
+
+func TestOptionTag(t *testing.T) {
+	fsys, err := New("golang", "go", Tag("go1"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	f, err := fsys.Open("VERSION")
+	if err != nil {
+		t.Fatal(err)
+	}
+	b, err := io.ReadAll(f)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := string(b)
+	if want := "go1"; got != want {
+		t.Errorf("got %v\nwant %v", got, want)
+	}
+}
