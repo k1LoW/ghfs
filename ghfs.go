@@ -167,6 +167,7 @@ func (fsys *FS) readDataFromSHA(sha string) (string, int, error) {
 type config struct {
 	client *github.Client
 	ctx    context.Context
+	branch string
 }
 
 type Option func(*config) error
@@ -189,6 +190,15 @@ func Context(ctx context.Context) Option {
 	}
 }
 
+func Branch(branch string) Option {
+	return func(c *config) error {
+		if branch != "" {
+			c.branch = branch
+		}
+		return nil
+	}
+}
+
 func New(owner, repo string, opts ...Option) (*FS, error) {
 	c := &config{}
 	for _, o := range opts {
@@ -206,21 +216,20 @@ func New(owner, repo string, opts ...Option) (*FS, error) {
 	if c.ctx == nil {
 		c.ctx = context.Background()
 	}
+	if c.branch == "" {
+		r, _, err := c.client.Repositories.Get(c.ctx, owner, repo)
+		if err != nil {
+			return nil, err
+		}
+		c.branch = r.GetDefaultBranch()
+	}
 
-	commits, _, err := c.client.Repositories.ListCommits(c.ctx, owner, repo, &github.CommitsListOptions{
-		ListOptions: github.ListOptions{
-			PerPage: 1,
-			Page:    1,
-		},
-	})
+	b, _, err := c.client.Repositories.GetBranch(c.ctx, owner, repo, c.branch, false)
 	if err != nil {
 		return nil, err
 	}
-	if len(commits) == 0 {
-		return nil, fmt.Errorf("repository not found: %s/%s", owner, repo)
-	}
+	sha := b.GetCommit().GetSHA()
 
-	sha := commits[0].GetSHA()
 	t, _, err := c.client.Git.GetTree(c.ctx, owner, repo, sha, true)
 	if err != nil {
 		return nil, err

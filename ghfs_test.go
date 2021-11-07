@@ -2,6 +2,7 @@ package ghfs
 
 import (
 	"context"
+	"io"
 	"testing"
 	"testing/fstest"
 	"testing/iotest"
@@ -54,5 +55,24 @@ func TestOptionContext(t *testing.T) {
 	}
 	if _, err := fsys.Open("README.md"); err != nil {
 		t.Fatal(err)
+	}
+}
+
+func TestOptionBranch(t *testing.T) {
+	fsys, err := New("golang", "go", Branch("release-branch.go1"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	f, err := fsys.Open("VERSION")
+	if err != nil {
+		t.Fatal(err)
+	}
+	b, err := io.ReadAll(f)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := string(b)
+	if want := "go1.0.3"; got != want {
+		t.Errorf("got %v\nwant %v", got, want)
 	}
 }
