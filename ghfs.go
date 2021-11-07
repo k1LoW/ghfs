@@ -164,18 +164,50 @@ func (fsys *FS) readDataFromSHA(sha string) (string, int, error) {
 	return data, blob.GetSize(), nil
 }
 
-func New(owner, repo string) (*FS, error) {
-	client, err := factory.NewGithubClient()
-	if err != nil {
-		return nil, err
-	}
-	return NewWithGithubClient(client, owner, repo)
+type config struct {
+	client *github.Client
+	ctx    context.Context
 }
 
-func NewWithGithubClient(client *github.Client, owner, repo string) (*FS, error) {
-	ctx := context.Background()
+type Option func(*config) error
 
-	c, _, err := client.Repositories.ListCommits(ctx, owner, repo, &github.CommitsListOptions{
+func Client(client *github.Client) Option {
+	return func(c *config) error {
+		if client != nil {
+			c.client = client
+		}
+		return nil
+	}
+}
+
+func Context(ctx context.Context) Option {
+	return func(c *config) error {
+		if ctx != nil {
+			c.ctx = ctx
+		}
+		return nil
+	}
+}
+
+func New(owner, repo string, opts ...Option) (*FS, error) {
+	c := &config{}
+	for _, o := range opts {
+		if err := o(c); err != nil {
+			return nil, err
+		}
+	}
+	if c.client == nil {
+		client, err := factory.NewGithubClient()
+		if err != nil {
+			return nil, err
+		}
+		c.client = client
+	}
+	if c.ctx == nil {
+		c.ctx = context.Background()
+	}
+
+	commits, _, err := c.client.Repositories.ListCommits(c.ctx, owner, repo, &github.CommitsListOptions{
 		ListOptions: github.ListOptions{
 			PerPage: 1,
 			Page:    1,
@@ -184,12 +216,12 @@ func NewWithGithubClient(client *github.Client, owner, repo string) (*FS, error)
 	if err != nil {
 		return nil, err
 	}
-	if len(c) == 0 {
+	if len(commits) == 0 {
 		return nil, fmt.Errorf("repository not found: %s/%s", owner, repo)
 	}
 
-	sha := c[0].GetSHA()
-	t, _, err := client.Git.GetTree(ctx, owner, repo, sha, true)
+	sha := commits[0].GetSHA()
+	t, _, err := c.client.Git.GetTree(c.ctx, owner, repo, sha, true)
 	if err != nil {
 		return nil, err
 	}
@@ -210,7 +242,7 @@ func NewWithGithubClient(client *github.Client, owner, repo string) (*FS, error)
 	}
 
 	return &FS{
-		client: client,
+		client: c.client,
 		owner:  owner,
 		repo:   repo,
 		shafs:  fsys,
