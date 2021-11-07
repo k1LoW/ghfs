@@ -167,6 +167,8 @@ func (fsys *FS) readDataFromSHA(sha string) (string, int, error) {
 type config struct {
 	client *github.Client
 	ctx    context.Context
+	branch string
+	tag    string
 }
 
 type Option func(*config) error
@@ -189,6 +191,24 @@ func Context(ctx context.Context) Option {
 	}
 }
 
+func Branch(branch string) Option {
+	return func(c *config) error {
+		if branch != "" {
+			c.branch = branch
+		}
+		return nil
+	}
+}
+
+func Tag(tag string) Option {
+	return func(c *config) error {
+		if tag != "" {
+			c.tag = tag
+		}
+		return nil
+	}
+}
+
 func New(owner, repo string, opts ...Option) (*FS, error) {
 	c := &config{}
 	for _, o := range opts {
@@ -206,21 +226,49 @@ func New(owner, repo string, opts ...Option) (*FS, error) {
 	if c.ctx == nil {
 		c.ctx = context.Background()
 	}
-
-	commits, _, err := c.client.Repositories.ListCommits(c.ctx, owner, repo, &github.CommitsListOptions{
-		ListOptions: github.ListOptions{
-			PerPage: 1,
-			Page:    1,
-		},
-	})
-	if err != nil {
-		return nil, err
-	}
-	if len(commits) == 0 {
-		return nil, fmt.Errorf("repository not found: %s/%s", owner, repo)
+	if c.tag != "" && c.branch != "" {
+		return nil, errors.New("only one of tag and branch can be specified")
 	}
 
-	sha := commits[0].GetSHA()
+	var sha string
+	if c.tag != "" {
+		page := 1
+	L:
+		for {
+			tags, res, err := c.client.Repositories.ListTags(c.ctx, owner, repo, &github.ListOptions{
+				Page:    page,
+				PerPage: 100,
+			})
+			if err != nil {
+				return nil, err
+			}
+			for _, t := range tags {
+				if c.tag == t.GetName() {
+					sha = t.GetCommit().GetSHA()
+					break L
+				}
+			}
+			if res.NextPage == 0 {
+				break
+			}
+			page += 1
+		}
+	} else {
+		if c.branch == "" {
+			r, _, err := c.client.Repositories.Get(c.ctx, owner, repo)
+			if err != nil {
+				return nil, err
+			}
+			c.branch = r.GetDefaultBranch()
+		}
+
+		b, _, err := c.client.Repositories.GetBranch(c.ctx, owner, repo, c.branch, false)
+		if err != nil {
+			return nil, err
+		}
+		sha = b.GetCommit().GetSHA()
+	}
+
 	t, _, err := c.client.Git.GetTree(c.ctx, owner, repo, sha, true)
 	if err != nil {
 		return nil, err
