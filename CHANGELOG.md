@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.5.0](https://github.com/k1LoW/ghfs/compare/v0.4.0...v0.5.0) (2021-11-08)
+
+* Support fs.SubFS [#4](https://github.com/k1LoW/ghfs/pull/4) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.4.0](https://github.com/k1LoW/ghfs/compare/v0.3.0...v0.4.0) (2021-11-07)
 
 * Add Branch and Tag options [#3](https://github.com/k1LoW/ghfs/pull/3) ([k1LoW](https://github.com/k1LoW))
