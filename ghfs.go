@@ -274,14 +274,14 @@ func New(owner, repo string, opts ...Option) (*FS, error) {
 		return nil, err
 	}
 
-	fsys := fstest.MapFS{}
+	shafs := fstest.MapFS{}
 	for _, e := range t.Entries {
 		if e.GetType() == "blob" {
 			m, err := filemode(e.GetMode())
 			if err != nil {
 				return nil, err
 			}
-			fsys[e.GetPath()] = &fstest.MapFile{
+			shafs[e.GetPath()] = &fstest.MapFile{
 				Data: []byte(e.GetSHA()),
 				Mode: m,
 				Sys:  e.GetSize(),
@@ -293,7 +293,7 @@ func New(owner, repo string, opts ...Option) (*FS, error) {
 		client: c.client,
 		owner:  owner,
 		repo:   repo,
-		shafs:  fsys,
+		shafs:  shafs,
 	}, nil
 }
 
