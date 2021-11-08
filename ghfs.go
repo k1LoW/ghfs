@@ -8,6 +8,7 @@ import (
 	"io"
 	"io/fs"
 	"strconv"
+	"strings"
 	"testing/fstest"
 
 	"github.com/google/go-github/v39/github"
@@ -18,6 +19,7 @@ var (
 	_ fs.FS         = (*FS)(nil)
 	_ fs.ReadFileFS = (*FS)(nil)
 	_ fs.ReadDirFS  = (*FS)(nil)
+	_ fs.SubFS      = (*FS)(nil)
 
 	ctx = context.Background()
 )
@@ -27,9 +29,12 @@ type FS struct {
 	owner  string
 	repo   string
 	shafs  fs.FS
+	prefix string
 }
 
 func (fsys *FS) Open(name string) (fs.File, error) {
+	name = fsys.nameWithPrefix(name)
+
 	f, err := fsys.shafs.Open(name)
 	if err != nil {
 		return nil, err
@@ -73,6 +78,7 @@ func (fsys *FS) Open(name string) (fs.File, error) {
 }
 
 func (fsys *FS) ReadFile(name string) ([]byte, error) {
+	name = fsys.nameWithPrefix(name)
 	f, err := fsys.shafs.Open(name)
 	if err != nil {
 		return nil, err
@@ -105,6 +111,7 @@ func (fsys *FS) ReadFile(name string) ([]byte, error) {
 }
 
 func (fsys *FS) ReadDir(name string) ([]fs.DirEntry, error) {
+	name = fsys.nameWithPrefix(name)
 	f, err := fsys.shafs.Open(name)
 	if err != nil {
 		return nil, err
@@ -133,6 +140,11 @@ func (fsys *FS) ReadDir(name string) ([]fs.DirEntry, error) {
 		})
 	}
 	return dents, nil
+}
+
+func (fsys *FS) Sub(dir string) (fs.FS, error) {
+	fsys.prefix = dir
+	return fsys, nil
 }
 
 func (fsys *FS) readDataFromSHA(sha string) (string, int, error) {
@@ -295,6 +307,16 @@ func New(owner, repo string, opts ...Option) (*FS, error) {
 		repo:   repo,
 		shafs:  shafs,
 	}, nil
+}
+
+func (fsys *FS) nameWithPrefix(name string) string {
+	if fsys.prefix == "" {
+		return name
+	}
+	if name == "." {
+		return strings.TrimPrefix(strings.TrimSuffix(fsys.prefix, "/"), "/")
+	}
+	return strings.TrimPrefix(fmt.Sprintf("%s/%s", strings.TrimSuffix(fsys.prefix, "/"), name), "/")
 }
 
 func filemode(s string) (fs.FileMode, error) {
