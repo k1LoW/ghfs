@@ -265,6 +265,9 @@ func New(owner, repo string, opts ...Option) (*FS, error) {
 			}
 			page += 1
 		}
+		if sha == "" {
+			return nil, fmt.Errorf("tag '%s' not fount", c.tag)
+		}
 	} else {
 		r, _, err := c.client.Repositories.Get(c.ctx, owner, repo)
 		if err != nil {
