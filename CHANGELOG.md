@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.6.0](https://github.com/k1LoW/ghfs/compare/v0.5.0...v0.6.0) (2021-11-14)
+
+* Return an empty FS if the repository is a zero-commit repository and a default branch has been specified. [#5](https://github.com/k1LoW/ghfs/pull/5) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.5.0](https://github.com/k1LoW/ghfs/compare/v0.4.0...v0.5.0) (2021-11-08)
 
 * Support fs.SubFS [#4](https://github.com/k1LoW/ghfs/pull/4) ([k1LoW](https://github.com/k1LoW))
