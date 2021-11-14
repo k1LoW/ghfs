@@ -265,17 +265,30 @@ func New(owner, repo string, opts ...Option) (*FS, error) {
 			}
 			page += 1
 		}
+		if sha == "" {
+			return nil, fmt.Errorf("tag '%s' not fount", c.tag)
+		}
 	} else {
+		r, _, err := c.client.Repositories.Get(c.ctx, owner, repo)
+		if err != nil {
+			return nil, err
+		}
+
 		if c.branch == "" {
-			r, _, err := c.client.Repositories.Get(c.ctx, owner, repo)
-			if err != nil {
-				return nil, err
-			}
 			c.branch = r.GetDefaultBranch()
 		}
 
 		b, _, err := c.client.Repositories.GetBranch(c.ctx, owner, repo, c.branch, false)
 		if err != nil {
+			if c.branch == r.GetDefaultBranch() {
+				// empty repository
+				return &FS{
+					client: c.client,
+					owner:  owner,
+					repo:   repo,
+					shafs:  fstest.MapFS{},
+				}, nil
+			}
 			return nil, err
 		}
 		sha = b.GetCommit().GetSHA()
