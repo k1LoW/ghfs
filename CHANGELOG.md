@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.7.0](https://github.com/k1LoW/ghfs/compare/v0.6.0...v0.7.0) (2022-08-22)
+
+* Add octocov [#7](https://github.com/k1LoW/ghfs/pull/7) ([k1LoW](https://github.com/k1LoW))
+* Bump up go and go-github version [#6](https://github.com/k1LoW/ghfs/pull/6) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.6.0](https://github.com/k1LoW/ghfs/compare/v0.5.0...v0.6.0) (2021-11-14)
 
 * Return an empty FS if the repository is a zero-commit repository and a default branch has been specified. [#5](https://github.com/k1LoW/ghfs/pull/5) ([k1LoW](https://github.com/k1LoW))
