@@ -2,6 +2,8 @@ name: build
 
 on:
   push:
+    branches:
+      - main
   pull_request:
 
 jobs:
@@ -24,6 +26,9 @@ jobs:
         run: make ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run octocov
+        uses: k1LoW/octocov-action@v0
 
       - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@master
