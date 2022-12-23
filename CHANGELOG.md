@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.8.0](https://github.com/k1LoW/ghfs/compare/v0.7.0...v0.8.0) (2022-12-23)
+
+* Bump up go and pkgs version [#8](https://github.com/k1LoW/ghfs/pull/8) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.7.0](https://github.com/k1LoW/ghfs/compare/v0.6.0...v0.7.0) (2022-08-22)
 
 * Add octocov [#7](https://github.com/k1LoW/ghfs/pull/7) ([k1LoW](https://github.com/k1LoW))
