@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.9.0](https://github.com/k1LoW/ghfs/compare/v0.8.0...v0.9.0) (2023-02-12)
+
+* Bump up go-github-client version [#9](https://github.com/k1LoW/ghfs/pull/9) ([k1LoW](https://github.com/k1LoW))
+
 ## [v0.8.0](https://github.com/k1LoW/ghfs/compare/v0.7.0...v0.8.0) (2022-12-23)
 
 * Bump up go and pkgs version [#8](https://github.com/k1LoW/ghfs/pull/8) ([k1LoW](https://github.com/k1LoW))
