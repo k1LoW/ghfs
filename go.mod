@@ -1,6 +1,6 @@
 module github.com/k1LoW/ghfs
 
-go 1.19
+go 1.20
 
 require (
 	github.com/google/go-github/v50 v50.0.0
