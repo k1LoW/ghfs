@@ -1,5 +1,11 @@
 # Changelog
 
+## [v1.0.0](https://github.com/k1LoW/ghfs/compare/v0.9.0...v1.0.0) (2023-02-19)
+
+* Update pkgs [#12](https://github.com/k1LoW/ghfs/pull/12) ([k1LoW](https://github.com/k1LoW))
+* Update go and pkgs [#11](https://github.com/k1LoW/ghfs/pull/11) ([k1LoW](https://github.com/k1LoW))
+* Bump golang.org/x/net from 0.5.0 to 0.7.0 [#10](https://github.com/k1LoW/ghfs/pull/10) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.9.0](https://github.com/k1LoW/ghfs/compare/v0.8.0...v0.9.0) (2023-02-12)
 
 * Bump up go-github-client version [#9](https://github.com/k1LoW/ghfs/pull/9) ([k1LoW](https://github.com/k1LoW))
