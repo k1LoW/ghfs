@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.0.1](https://github.com/k1LoW/ghfs/compare/v1.0.0...v1.0.1) (2023-02-19)
+
+* Fix go.* [#13](https://github.com/k1LoW/ghfs/pull/13) ([k1LoW](https://github.com/k1LoW))
+
 ## [v1.0.0](https://github.com/k1LoW/ghfs/compare/v0.9.0...v1.0.0) (2023-02-19)
 
 * Update pkgs [#12](https://github.com/k1LoW/ghfs/pull/12) ([k1LoW](https://github.com/k1LoW))
