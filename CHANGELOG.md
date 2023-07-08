@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.0.2](https://github.com/k1LoW/ghfs/compare/v1.0.1...v1.0.2) - 2023-07-08
+- Update pkgs by @k1LoW in https://github.com/k1LoW/ghfs/pull/14
+- Setup tagpr by @k1LoW in https://github.com/k1LoW/ghfs/pull/15
+
 ## [v1.0.1](https://github.com/k1LoW/ghfs/compare/v1.0.0...v1.0.1) (2023-02-19)
 
 * Fix go.* [#13](https://github.com/k1LoW/ghfs/pull/13) ([k1LoW](https://github.com/k1LoW))
@@ -47,4 +51,3 @@
 * Support fs.ReadDirFS [#1](https://github.com/k1LoW/ghfs/pull/1) ([k1LoW](https://github.com/k1LoW))
 
 ## [v0.1.0](https://github.com/k1LoW/ghfs/compare/a4b05ac393a8...v0.1.0) (2021-11-06)
-
