@@ -11,8 +11,8 @@ import (
 	"strings"
 	"testing/fstest"
 
-	"github.com/google/go-github/v50/github"
-	"github.com/k1LoW/go-github-client/v50/factory"
+	"github.com/google/go-github/v53/github"
+	"github.com/k1LoW/go-github-client/v53/factory"
 )
 
 var (
