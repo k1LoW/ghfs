@@ -11,8 +11,8 @@ import (
 	"strings"
 	"testing/fstest"
 
-	"github.com/google/go-github/v53/github"
-	"github.com/k1LoW/go-github-client/v53/factory"
+	"github.com/google/go-github/v58/github"
+	"github.com/k1LoW/go-github-client/v58/factory"
 )
 
 var (
@@ -278,7 +278,7 @@ func New(owner, repo string, opts ...Option) (*FS, error) {
 			c.branch = r.GetDefaultBranch()
 		}
 
-		b, _, err := c.client.Repositories.GetBranch(c.ctx, owner, repo, c.branch, false)
+		b, _, err := c.client.Repositories.GetBranch(c.ctx, owner, repo, c.branch, 0)
 		if err != nil {
 			if c.branch == r.GetDefaultBranch() {
 				// empty repository
