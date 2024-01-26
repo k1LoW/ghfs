@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.1.1](https://github.com/k1LoW/ghfs/compare/v1.1.0...v1.1.1) - 2024-01-26
+- Bump golang.org/x/net from 0.12.0 to 0.17.0 by @dependabot in https://github.com/k1LoW/ghfs/pull/17
+- Bump golang.org/x/net from 0.7.0 to 0.17.0 in /example by @dependabot in https://github.com/k1LoW/ghfs/pull/18
+- Bump golang.org/x/crypto from 0.14.0 to 0.17.0 by @dependabot in https://github.com/k1LoW/ghfs/pull/21
+- Bump golang.org/x/crypto from 0.14.0 to 0.17.0 in /example by @dependabot in https://github.com/k1LoW/ghfs/pull/20
+- Bump github.com/cloudflare/circl from 1.3.3 to 1.3.7 by @dependabot in https://github.com/k1LoW/ghfs/pull/22
+- Update pkgs by @k1LoW in https://github.com/k1LoW/ghfs/pull/23
+
 ## [v1.0.2](https://github.com/k1LoW/ghfs/compare/v1.0.1...v1.0.2) - 2023-07-08
 - Update pkgs by @k1LoW in https://github.com/k1LoW/ghfs/pull/14
 - Setup tagpr by @k1LoW in https://github.com/k1LoW/ghfs/pull/15
