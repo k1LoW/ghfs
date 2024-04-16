@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.3.0](https://github.com/k1LoW/ghfs/compare/v1.2.0...v1.3.0) - 2024-04-16
+- Bump google.golang.org/protobuf from 1.28.0 to 1.33.0 in /example by @dependabot in https://github.com/k1LoW/ghfs/pull/24
+- Update go-github-client ( and go version ) by @k1LoW in https://github.com/k1LoW/ghfs/pull/26
+
 ## [v1.1.1](https://github.com/k1LoW/ghfs/compare/v1.1.0...v1.1.1) - 2024-01-26
 - Bump golang.org/x/net from 0.12.0 to 0.17.0 by @dependabot in https://github.com/k1LoW/ghfs/pull/17
 - Bump golang.org/x/net from 0.7.0 to 0.17.0 in /example by @dependabot in https://github.com/k1LoW/ghfs/pull/18
