@@ -1,5 +1,11 @@
 # Changelog
 
+## [v1.4.0](https://github.com/k1LoW/ghfs/compare/v1.3.2...v1.4.0) - 2025-02-28
+- Bump golang.org/x/crypto from 0.21.0 to 0.31.0 in /example by @dependabot in https://github.com/k1LoW/ghfs/pull/32
+- chore: update Go version in tests and go.mod to 1.23 by @k1LoW in https://github.com/k1LoW/ghfs/pull/36
+- [breaking changes] Upgrade go-github and go-github-client by @wreulicke in https://github.com/k1LoW/ghfs/pull/34
+- Bump golang.org/x/net from 0.23.0 to 0.33.0 in /example by @dependabot in https://github.com/k1LoW/ghfs/pull/35
+
 ## [v1.3.2](https://github.com/k1LoW/ghfs/compare/v1.3.1...v1.3.2) - 2024-11-27
 - Bump github.com/golang-jwt/jwt/v4 from 4.5.0 to 4.5.1 by @dependabot in https://github.com/k1LoW/ghfs/pull/29
 - Bump github.com/cli/go-gh/v2 from 2.6.0 to 2.11.1 by @dependabot in https://github.com/k1LoW/ghfs/pull/31
