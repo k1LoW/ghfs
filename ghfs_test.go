@@ -7,7 +7,7 @@ import (
 	"testing/fstest"
 	"testing/iotest"
 
-	"github.com/k1LoW/go-github-client/v58/factory"
+	"github.com/k1LoW/go-github-client/v67/factory"
 )
 
 func TestFS(t *testing.T) {
