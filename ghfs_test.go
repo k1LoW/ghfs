@@ -29,7 +29,7 @@ func TestIO(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := iotest.TestReader(f, []byte("module golang.org/x/time\n\ngo 1.18\n")); err != nil {
+	if err := iotest.TestReader(f, []byte("module golang.org/x/time\n\ngo 1.23.0\n")); err != nil {
 		t.Fatal(err)
 	}
 }
