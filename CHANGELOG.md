@@ -1,5 +1,8 @@
 # Changelog
 
+## [v1.5.0](https://github.com/k1LoW/ghfs/compare/v1.4.0...v1.5.0) - 2025-03-13
+- Bump golang.org/x/net from 0.33.0 to 0.36.0 in /example by @dependabot in https://github.com/k1LoW/ghfs/pull/37
+
 ## [v1.4.0](https://github.com/k1LoW/ghfs/compare/v1.3.2...v1.4.0) - 2025-02-28
 - Bump golang.org/x/crypto from 0.21.0 to 0.31.0 in /example by @dependabot in https://github.com/k1LoW/ghfs/pull/32
 - chore: update Go version in tests and go.mod to 1.23 by @k1LoW in https://github.com/k1LoW/ghfs/pull/36
