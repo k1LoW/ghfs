@@ -1,5 +1,19 @@
+version: "2"
+run:
+  timeout: 2m
 linters:
   enable:
     - gosec
-issues:
-  exclude-use-default: false
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
