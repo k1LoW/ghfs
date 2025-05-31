@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.5.1](https://github.com/k1LoW/ghfs/compare/v1.5.0...v1.5.1) - 2025-05-31
+- Bump golang.org/x/net from 0.36.0 to 0.38.0 in /example by @dependabot in https://github.com/k1LoW/ghfs/pull/40
+- Bump github.com/cli/go-gh/v2 from 2.11.1 to 2.12.1 by @dependabot in https://github.com/k1LoW/ghfs/pull/41
+
 ## [v1.5.0](https://github.com/k1LoW/ghfs/compare/v1.4.0...v1.5.0) - 2025-03-22
 - Bump golang.org/x/net from 0.33.0 to 0.36.0 in /example by @dependabot in https://github.com/k1LoW/ghfs/pull/37
 - Bump github.com/golang-jwt/jwt/v4 from 4.5.1 to 4.5.2 by @dependabot in https://github.com/k1LoW/ghfs/pull/39
