@@ -1,5 +1,10 @@
 # Changelog
 
+## [v1.5.2](https://github.com/k1LoW/ghfs/compare/v1.5.1...v1.5.2) - 2025-11-21
+- chore: setup tagpr labels by @k1LoW in https://github.com/k1LoW/ghfs/pull/44
+- chore(deps): bump the dependencies group with 3 updates by @dependabot[bot] in https://github.com/k1LoW/ghfs/pull/47
+- chore(deps): bump github.com/k1LoW/go-github-client/v67 from 67.0.13 to 67.0.20 in the dependencies group by @dependabot[bot] in https://github.com/k1LoW/ghfs/pull/48
+
 ## [v1.5.1](https://github.com/k1LoW/ghfs/compare/v1.5.0...v1.5.1) - 2025-05-31
 - Bump golang.org/x/net from 0.36.0 to 0.38.0 in /example by @dependabot in https://github.com/k1LoW/ghfs/pull/40
 - Bump github.com/cli/go-gh/v2 from 2.11.1 to 2.12.1 by @dependabot in https://github.com/k1LoW/ghfs/pull/41
