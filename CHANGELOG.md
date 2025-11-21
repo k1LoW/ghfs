@@ -1,5 +1,7 @@
 # Changelog
 
+## [v1.5.3](https://github.com/k1LoW/ghfs/compare/v1.5.2...v1.5.3) - 2025-11-21
+
 ## [v1.5.2](https://github.com/k1LoW/ghfs/compare/v1.5.1...v1.5.2) - 2025-11-21
 - chore: setup tagpr labels by @k1LoW in https://github.com/k1LoW/ghfs/pull/44
 - chore(deps): bump the dependencies group with 3 updates by @dependabot[bot] in https://github.com/k1LoW/ghfs/pull/47
