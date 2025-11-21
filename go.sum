@@ -1,7 +1,7 @@
 github.com/bradleyfalzon/ghinstallation/v2 v2.17.0 h1:SmbUK/GxpAspRjSQbB6ARvH+ArzlNzTtHydNyXUQ6zg=
 github.com/bradleyfalzon/ghinstallation/v2 v2.17.0/go.mod h1:vuD/xvJT9Y+ZVZRv4HQ42cMyPFIYqpc7AbB4Gvt/DlY=
-github.com/cli/go-gh/v2 v2.13.0 h1:jEHZu/VPVoIJkciK3pzZd3rbT8J90swsK5Ui4ewH1ys=
-github.com/cli/go-gh/v2 v2.13.0/go.mod h1:Us/NbQ8VNM0fdaILgoXSz6PKkV5PWaEzkJdc9vR2geM=
+github.com/cli/go-gh/v2 v2.12.2 h1:EtocmDAH7dKrH2PscQOQVo7PbFD5G6uYx4rSKY2w1SY=
+github.com/cli/go-gh/v2 v2.12.2/go.mod h1:g2IjwHEo27fgItlS9wUbRaXPYurZEXPp1jrxf3piC6g=
 github.com/cli/safeexec v1.0.1 h1:e/C79PbXF4yYTN/wauC4tviMxEV13BwljGj0N9j+N00=
 github.com/cli/safeexec v1.0.1/go.mod h1:Z/D4tTN8Vs5gXYHDCbaM1S/anmEDnJb1iW0+EJ5zx3Q=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
@@ -22,8 +22,8 @@ github.com/google/go-querystring v1.1.0 h1:AnCroh3fv4ZBgVIf1Iwtovgjaw/GiKJo8M8yD
 github.com/google/go-querystring v1.1.0/go.mod h1:Kcdr2DB4koayq7X8pmAG4sNG59So17icRSOU623lUBU=
 github.com/gorilla/mux v1.8.0 h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=
 github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
-github.com/k1LoW/go-github-client/v67 v67.0.20 h1:ClVN464vLAP3cIBeA0rdYN4J3CGz0W6qfiAW41U6/Os=
-github.com/k1LoW/go-github-client/v67 v67.0.20/go.mod h1:/XSCK7pOcLD81MRna2dUTmF0Yssg4pQABp6U3I2vpyQ=
+github.com/k1LoW/go-github-client/v67 v67.0.21 h1:PabCAeAqtHm8ZjGKjWn9LujcSHtOv2TgwFHY+PNOE5o=
+github.com/k1LoW/go-github-client/v67 v67.0.21/go.mod h1:aYgAfsKgk0dRRCBkPLsla56p4seUmBpBh61lbTriQMg=
 github.com/kr/pretty v0.3.1 h1:flRD4NNwYAUpkphVc1HcthR4KEIFJ65n8Mw5qdRn3LE=
 github.com/kr/pretty v0.3.1/go.mod h1:hoEshYVHaxMs3cyo3Yncou5ZscifuDolrwPKZanG3xk=
 github.com/kr/text v0.2.0 h1:5Nx0Ya0ZqY2ygV366QzturHI13Jq95ApcVaJBhpS+AY=
