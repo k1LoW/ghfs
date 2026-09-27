@@ -20,12 +20,12 @@ var (
 	_ fs.ReadFileFS = (*FS)(nil)
 	_ fs.ReadDirFS  = (*FS)(nil)
 	_ fs.SubFS      = (*FS)(nil)
-
-	ctx = context.Background()
 )
 
 type FS struct {
 	client *github.Client
+	// ctx is held because the fs.FS method signatures cannot receive a context.
+	ctx    context.Context
 	owner  string
 	repo   string
 	shafs  fs.FS
@@ -148,7 +148,7 @@ func (fsys *FS) Sub(dir string) (fs.FS, error) {
 }
 
 func (fsys *FS) readDataFromSHA(sha string) (string, int, error) {
-	blob, _, err := fsys.client.Git.GetBlob(ctx, fsys.owner, fsys.repo, sha)
+	blob, _, err := fsys.client.Git.GetBlob(fsys.ctx, fsys.owner, fsys.repo, sha)
 	if err != nil {
 		return "", 0, err
 	}
@@ -284,6 +284,7 @@ func New(owner, repo string, opts ...Option) (*FS, error) {
 				// empty repository
 				return &FS{
 					client: c.client,
+					ctx:    c.ctx,
 					owner:  owner,
 					repo:   repo,
 					shafs:  fstest.MapFS{},
@@ -316,6 +317,7 @@ func New(owner, repo string, opts ...Option) (*FS, error) {
 
 	return &FS{
 		client: c.client,
+		ctx:    c.ctx,
 		owner:  owner,
 		repo:   repo,
 		shafs:  shafs,
