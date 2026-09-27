@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.6.0](https://github.com/k1LoW/ghfs/compare/v1.5.3...v1.6.0) - 2026-09-27
+
+- chore(deps): bump the dependencies group with 2 updates by @dependabot[bot] in https://github.com/k1LoW/ghfs/pull/50
+- chore(deps): bump the dependencies group with 3 updates by @dependabot[bot] in https://github.com/k1LoW/ghfs/pull/52
+- fix: use the context given by the Context option when fetching blobs by @k1LoW in https://github.com/k1LoW/ghfs/pull/56
+- chore(deps): bump the dependencies group across 1 directory with 5 updates by @dependabot[bot] in https://github.com/k1LoW/ghfs/pull/57
+- chore!: update go-github and go-github-client to v90 by @k1LoW in https://github.com/k1LoW/ghfs/pull/58
+
 ## [v1.5.3](https://github.com/k1LoW/ghfs/compare/v1.5.2...v1.5.3) - 2025-11-21
 
 ## [v1.5.2](https://github.com/k1LoW/ghfs/compare/v1.5.1...v1.5.2) - 2025-11-21
