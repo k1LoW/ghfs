@@ -6,13 +6,12 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
-	"net/url"
 	"testing"
 	"testing/fstest"
 	"testing/iotest"
 
-	"github.com/google/go-github/v67/github"
-	"github.com/k1LoW/go-github-client/v67/factory"
+	"github.com/google/go-github/v90/github"
+	"github.com/k1LoW/go-github-client/v90/factory"
 )
 
 func TestFS(t *testing.T) {
@@ -118,12 +117,11 @@ func TestOptionContextCancelBlobRead(t *testing.T) {
 	ts := httptest.NewServer(mux)
 	t.Cleanup(ts.Close)
 
-	client := github.NewClient(nil)
-	u, err := url.Parse(ts.URL + "/")
+	baseURL := ts.URL + "/"
+	client, err := github.NewClient(github.WithURLs(&baseURL, nil))
 	if err != nil {
 		t.Fatal(err)
 	}
-	client.BaseURL = u
 
 	ctx, cancel := context.WithCancel(t.Context())
 	fsys, err := New("o", "r", Client(client), Context(ctx))
