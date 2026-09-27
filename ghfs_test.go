@@ -21,7 +21,7 @@ func TestFS(t *testing.T) {
 }
 
 func TestIO(t *testing.T) {
-	fsys, err := New("golang", "time")
+	fsys, err := New("golang", "time", Tag("v0.14.0"))
 	if err != nil {
 		t.Fatal(err)
 	}
